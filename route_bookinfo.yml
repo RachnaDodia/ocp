@@ -10,10 +10,10 @@
          kind: Route
          metadata:
            name: book-import
-           labels:
-             name: book-import
+           namespace: bookinfo             
          spec:
            path: "/"
            to:
              kind: Service
              name: book-import
+     delegate_to: localhost   
