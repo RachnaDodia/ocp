@@ -10,13 +10,14 @@
          kind: Service
          metadata:
            name: book-import
+           namespace: bookinfo
            labels:
              name: book-import
          spec:
            type: ClusterIP
            ports:
-             - port: 80
-               targetPort: 8080
-               protocol: TCP
+           - port: 80
+             targetPort: 8080
            selector:
              name: book-import
+     delegate_to: localhost
