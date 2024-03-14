@@ -2,6 +2,12 @@
 - name: Openshift integration 
   hosts: all
   tasks:
+   - name: install pre-requisites
+     pip:
+       name:
+         - openshift
+         - pyyaml
+         - kubernetes 
    - name: Deploy Book info  application
      redhat.openshift.k8s:
        state: present   
