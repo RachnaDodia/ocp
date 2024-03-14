@@ -1,0 +1,42 @@
+---
+- name: Openshift integration 
+  hosts: all
+  tasks:
+   - name: Create service for front end application
+     redhat.openshift.k8s:
+       state: present   
+       definition:
+         apiVersion: v1
+         kind: Service
+         metadata:
+           name: frontend
+           namespace: guestbook            
+           labels:
+             app: guestbook
+             tier: frontend
+         spec:
+  # comment or delete the following line if you want to use a LoadBalancer
+           type: NodePort 
+  # if your cluster supports it, uncomment the following to automatically create
+  # an external load-balanced IP for the frontend service.
+  # type: LoadBalancer
+           ports:
+           - port: 80
+           selector:
+             app: guestbook
+             tier: frontend
+     delegate_to: localhost
+   - name: Create route for front end application
+     redhat.openshift.k8s:
+       state: present   
+       definition:
+         apiVersion: v1
+         kind: Route
+         metadata:
+           name: frontend
+           namespace: guestbook             
+         spec:
+           to:
+             kind: Service
+             name: frontend
+     delegate_to: localhost      
