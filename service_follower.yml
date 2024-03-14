@@ -1,0 +1,25 @@
+---
+- name: Openshift integration 
+  hosts: all
+  tasks:
+   - name: Create service for Redis-Follower
+     redhat.openshift.k8s:
+       state: present   
+       definition:
+         apiVersion: v1
+         kind: Service
+         metadata:
+           name: redis-follower
+           namespace: guestbook           
+           labels:
+             app: redis
+             tier: backend
+             role: follower
+         spec:
+           ports:
+           - port: 6379
+           selector:
+             app: redis
+             tier: backend
+             role: follower
+     delegate_to: localhost
