@@ -1,11 +1,19 @@
-apiVersion: route.openshift.io/v1
-kind: Route
-metadata:
-  name: book-import
-  labels:
-    name: book-import
-spec:
-  path: "/"
-  to:
-    kind: Service
-    name: book-import
+---
+- name: Openshift integration 
+  hosts: all
+  tasks:
+   - name: Create route for Book Info application
+     redhat.openshift.k8s:
+       state: present   
+       definition:
+         apiVersion: route.openshift.io/v1
+         kind: Route
+         metadata:
+           name: book-import
+           labels:
+             name: book-import
+         spec:
+           path: "/"
+           to:
+             kind: Service
+             name: book-import
