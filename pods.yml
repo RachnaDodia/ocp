@@ -1,6 +1,6 @@
 ---
 - name: Get POD Status
-  hosts: node1
+  hosts: all
   tasks:
    - name: Get Pod status
      shell: |
