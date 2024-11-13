@@ -1,0 +1,8 @@
+---
+- name: Get POD Status
+  hosts: node1
+  tasks:
+   - name: Get Pod status
+     shell: |
+       oc login -u opentlc-mgr -p r3dh4t1! console-openshift-console.apps.cluster-7c6zd.7c6zd.sandbox2306.opentlc.com
+       oc get pods -n finacle
